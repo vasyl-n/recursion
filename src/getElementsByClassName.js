@@ -4,7 +4,20 @@
 // };
 
 // But instead we're going to implement it from scratch:
-var getElementsByClassName = function(className
-) {
-  // your code here
+const getElementsByClassName = className => {
+  const elements = [];
+  const recurse = el => {
+  	 for(c in el.classList){
+	  	if(el.classList[c] === className){
+	  		if(elements[elements.length - 1] !== el){
+	  		elements.push(el);	  		
+	  		}
+	  	}
+	  }
+  	_.each(el.children, function(child){
+  		recurse(child);
+  	})
+  }
+  recurse(document)
+  return elements;
 };
