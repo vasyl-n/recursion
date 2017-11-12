@@ -1,13 +1,8 @@
 var parseJSON = function(json) {
-console.log(json)
-
 	json = trimStr(json)
-	console.log(json)
-
 	if(isEmptyStr(json)){
 		return ""
 	}
-
 	if(json === 'null'){
 		return null;
     }
@@ -20,9 +15,6 @@ console.log(json)
   	if(json === 'true'){
   		return true;
   	}
-	if(json[0] === '"'){
-		return json.slice(1, json.length - 1);
-    }
 	if(json[0] === '['){
 		if(json[1] === ']'){
 			return [];
@@ -40,21 +32,17 @@ console.log(json)
 		if(json[1] === '}'){
 			return {};
         };
-        // debugger
  		var j = sliceFirstAndLast(json)
 
 		j = splitObj(j);
 		var obj = j.reduce(function(a,b){
-			// debugger
 			// var c = b.split(":");
 			var c = keyAndValue(b)
-			console.log(c, "cccc")
 			var key = parseJSON(c[0])
 			var value = parseJSON(c[1]);
 			a[key] = value
 			return a;
         }, {});
-        console.log(obj)
         return obj
     }
     return json;
@@ -63,21 +51,14 @@ console.log(json)
 function splitObj(str){
 	arr = []
 	while(str.indexOf('":') > 0){
-	console.log(str)
-	// debugger
 	    var quoteColonIndex = str.indexOf('":');
 	    var splitted = str.slice(quoteColonIndex + 2, str.length)
 	    var key = str.slice(0, quoteColonIndex + 2)
-
 	    var position = 1
-
 	    var comaIndex = getPosition(splitted, ',', position)
 	    if(splitted.indexOf('[') >= 0 && splitted.indexOf(']') > comaIndex){
-	    	debugger
 	    	comaIndex = getPosition(splitted, ',', ++position)
 	    }
-
-	    // var comaIndex = splitted.indexOf(',');
 	    if(comaIndex < 0){
 	    	comaIndex = splitted.length;
 	    }
@@ -86,7 +67,6 @@ function splitObj(str){
 	    arr.push(el);
 	    str = splitted.slice(comaIndex + 2, str.length)
 	}
-	console.log(arr)
 	return arr
 }
 
@@ -109,7 +89,6 @@ function isEmptyStr(str){
 }
 
 function sliceFirstAndLast(str){
-	console.log(str, str.slice(1, str.length - 1))
 	return str.slice(1, str.length - 1);
 }
 
@@ -124,3 +103,9 @@ function keyAndValue(str){
 function getPosition(string, subString, index) {
    return string.split(subString, index).join(subString).length;
 }
+
+function newString(str){
+var ns = str;
+return ns;
+}
+
